@@ -15,16 +15,6 @@ export default function Home(){
     const dispatch = useDispatch()
     const videogamesFilter = useSelector ((state) => state.videogamesFilter)
     const videogames = useSelector ((state) => state.videogames)
-    // const [order, setOrder] = useState("")
-    // const[currentPage, setCurrentPage] = useState(1)
-    // const[charactersPerPage, setCharactersPerPage] = useState(12)
-    // const indexOfLastCharacter = currentPage * charactersPerPage 
-    // const indexOfFirstCharacter = indexOfLastCharacter - charactersPerPage
-    // const currentCharacters = charactersFilter.slice(indexOfFirstCharacter, indexOfLastCharacter)
-
-    // const paginado = (pageNumber) => {
-    //     setCurrentPage(pageNumber)
-    // }
 
 
 
@@ -39,29 +29,14 @@ export default function Home(){
 
 
     return (
-    <div className="container-home">
-        {/* <NavBar setCurrentPage={setCurrentPage} setOrder={setOrder}/> */}
-        <div className="filtros-home">
+<div className="container-home">
+       
+   
 
         <div className="boton-y-titulo">
-
-        {/* <Link to = "/create"><button className="home-create-button">CREATE</button></Link> */}
         
         <h1 className="titulo-home">Videogames</h1>
         </div>
-   
-
-            
-
-            <div className="main">
- </div>
- 
-            {/* <Paginado
-            charactersPerPage={charactersPerPage}
-            charactersFilter={charactersFilter.length}
-            paginado={paginado}
-            currentPage={currentPage}
-            /> */}
           
 <div className="div-cards">
 
@@ -74,13 +49,11 @@ export default function Home(){
                     </Link>
                  </div>
            );
-        })}
-
-        </div>
-       
-        </div>
+        })}      
+</div>
+      
         {videogamesFilter.length === 0 && <  img src = {gif} width="310px" height="200px"  />}
-        </div>
+</div>
        
     )
 }
