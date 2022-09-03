@@ -18,6 +18,7 @@ router.get('/', async (req,res) =>{
         videoName.length ? 
         res.status(200).send(videoName) :
         res.status(404).send('unavailable');
+        console.log(videoName)
     }else{
         res.status(200).send(allGames)
     }} catch (error){ console.log (error)}
