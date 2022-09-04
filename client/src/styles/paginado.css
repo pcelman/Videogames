@@ -1,0 +1,29 @@
+.botonera {
+    display: flex;
+    flex-direction:row;
+
+}
+
+.number{
+    /* display: flex;
+    justify-content: center;
+    align-items: center;
+    word-wrap: normal; */
+    /* letter-spacing: 12px; */
+    /* flex: row; */
+    justify-content: center;
+}
+
+.letraNegrita {
+    color: aliceblue;
+    letter-spacing: 12px;
+    text-decoration-style: solid;
+    /* text-decoration: underline; */
+    
+}
+
+.letraStandard {
+    text-decoration: none;
+    
+    letter-spacing: 12px;
+}

@@ -1,6 +1,6 @@
-.App {
+/* .App {
   text-align: center;
-  background-color: black;
+  background-color: rgb(135, 101, 101);
 }
 
 .App-logo {
@@ -15,7 +15,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #0c0c0c;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -36,4 +36,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */

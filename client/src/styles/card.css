@@ -1,0 +1,55 @@
+div select {
+    margin-left: 50px;
+    border-radius: 4px;
+    padding: 7px;
+    margin-top: 10px;
+    border: none !important;
+    background-color: rgb(255, 255, 255);
+    color: #31073d;
+    outline: none;
+}
+.card {
+    margin: 25px;
+    width: 17rem; 
+    border-radius: 10px;
+    background: #e0e0e0;
+    
+    box-sizing: content-box;
+    min-height: 150px;
+    outline: 5px;
+    outline-color: cadetblue;
+}
+
+.name-card{
+  /* font-family: "Optima, sans-serif"; */
+  font-size: 15px;
+  color: #000000;
+  text-decoration: none;
+}
+.genre {
+    display: flex;
+    color: #3b0218;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    }
+
+
+    .rating-card {
+        font-size: 15px;
+        justify-content: center;
+        align-items: right;
+    }
+    .genre {
+        font-size: 15px;
+    }
+    .image-card {
+        padding: left 20px;
+        position: relative;
+        left: 90px;
+    }
+    .texto-card {
+        justify-content: center;
+        align-items: right;
+
+    }

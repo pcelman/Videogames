@@ -1,0 +1,12 @@
+.container-home {
+       background-size: cover;
+       background-color: rgb(135, 101, 101);
+       /* position:fixed; */
+       overflow-y: scroll;
+     }
+
+.div-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+   } 
