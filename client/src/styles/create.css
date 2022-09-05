@@ -6,6 +6,18 @@
     background-size: cover;
     position:absolute;
   } */
+.checkboxes-create {
+  color: rgb(163, 158, 158);
+}
+.title-name{
+  color: rgb(163, 158, 158);
+}
+.platforms-create{
+  color: rgb(163, 158, 158); 
+}
+.form-create{
+  color: rgb(163, 158, 158); 
+}
 
 .card-create-character{
     width: 190px;

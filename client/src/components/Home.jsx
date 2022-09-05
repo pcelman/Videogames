@@ -7,6 +7,8 @@ import  Card  from "./Card"
 // import  Footer  from "./Footer"
 import  Paginado  from "./Paginado"
 import gif from "./loading.gif"
+import jpg from "./placeHolder.jpg"
+
 import "../styles/home.css"
 import NavBar from "./NavBar.jsx";
 
@@ -67,7 +69,7 @@ currentPage={currentPage}
             return (
                 <div className="div-cards">
                     <Link to ={`/detail/${e.id}`}> 
-                        <Card key= {e.id} name = {e.name} image = {e.image? e.image : <img src = "http://www.clipartbest.com/cliparts/9c4/8nA/9c48nAycE.jpeg" width="310px" height="200px" />} genre= {e.genre} rating= {e.rating}/>
+                        <Card key= {e.id} name = {e.name} image = {e.image? e.image : <img src = {jpg} width="310px" height="200px" />} genre= {e.genre} rating= {e.rating}/>
                     </Link>
                  </div>
            );

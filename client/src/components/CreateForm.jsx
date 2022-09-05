@@ -3,7 +3,8 @@ import { postVideogame, getGenre, getVideogames, cleanFilter } from "../actions/
 import { useDispatch, useSelector } from "react-redux";
 import "../styles/createForm.css"
 
-export default function CreateForm( handleInputChange, handleSubmit){
+export default function CreateForm( handleInputChange, handleSubmit, onChange){
+
     const dispatch = useDispatch()
     const genre = useSelector((state) => state.genre)
     const [errors,setErrors] = useState({});
