@@ -6,6 +6,7 @@ import { getNameVideogames } from "../actions/index";
 export default function SearchBar (){
     const dispatch = useDispatch()
     const [name, setName] = useState("")
+   
 
     function hanldeInputChange(e){
         e.preventDefault()
@@ -26,7 +27,8 @@ export default function SearchBar (){
             placeholder = "search..."
             onChange = {(e)=> hanldeInputChange(e)}
             />
-            <button type ="submit" onClick={(e)=> handleSubmit(e)}>Search</button>
+            <button type ="submit" onClick={(e)=> handleSubmit(e)}  disabled={name.length ? false : true} >Search</button>
+            
         </div>
     )
 }

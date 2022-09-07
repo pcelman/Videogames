@@ -2,8 +2,10 @@ const initialState = {
     videogames: [],
     videogamesFilter: [],
     genre: [],
-    detail: [],
-    currentPage: []
+    // detail: [],
+    // currentPage: []
+    status: []
+
 }
 
 
@@ -40,21 +42,27 @@ switch(action.type){
             }
                 
     case "GET_NAME_VIDEOGAMES":
-    // response === "unavailable" ? "hacé esto" :
         return {
             ...state,
             videogamesFilter: action.payload 
         }
 
-    case "FILTER_BY_GENRE"://la logica va antes del return en el reducer
+    case "NO_NAME":
+        return {
+            ...state,
+            videogamesFilter: [action.payload]
+        }   
+        
+    case "FILTER_BY_GENRE":
         const allV = state.videogames
-        const filterAllV = action.payload === "All"? allV: 
-        allV.filter(e => e.genre.map((e) => e.name).includes(action.payload))
+        const filterAllG = action.payload === "All"? allV: 
+
+        allV.filter((e)=>e.genre === (action.payload))
         return {
                     ...state,
-                    videogamesFilter: filterAllV
-                    
+                    videogamesFilter: filterAllG
               }  
+
 case "FILTER_CREATED": 
 
     var filterCreated; 
@@ -100,19 +108,19 @@ case "ORDER_BY_NAME":
  
         let sortedArr1 = action.payload === 'ratingMin' ?
             state.videogamesFilter.sort(function(a,b){
-                if (a.Rating > b.Rating){
+                if (a.rating > b.rating){
                     return 1;
                     }
-                if (b.Rating > a.Rating){
+                if (b.rating > a.rating){
                     return -1;
                     }
                 return 0;
             }):
             state.videogamesFilter.sort(function(a,b){
-                if (a.Rating > b.Rating){
+                if (a.rating > b.rating){
                     return -1;
                     }
-                if (b.Rating > a.Rating){
+                if (b.rating > a.rating){
                     return 1;
                     }
                 return 0;

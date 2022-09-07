@@ -52,19 +52,23 @@ export function postVideogame(payload){
 
 export function getNameVideogames(name){
     return async function (dispatch){
-        try {
+    
             var json = await axios.get(`http://localhost:3001/videogame?name=${name}`)
+console.log(json)
+            if (json.data === "otra cosa") 
+             return dispatch({
+                type: "NO_NAME",
+                payload: json
+            })
+
             return dispatch({
                 type: "GET_NAME_VIDEOGAMES",
                 payload: json.data 
             })
-        } catch (error){ 
-            console.log(error)
         }
-    }
 }
 
-export function filterByGenre(payload){//la accion despacha el type, no hacer la logica aca, hacerla en el reducer o en el componente
+export function filterByGenre(payload){ 
     return {
         type: "FILTER_BY_GENRE",
         payload
@@ -85,6 +89,7 @@ export function orderByDefault(payload) {
     };
 };
 export function orderByName(payload) {
+   
     return {
         type: "ORDER_BY_NAME",
         payload

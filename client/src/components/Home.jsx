@@ -17,6 +17,8 @@ export default function Home(){
 
     const dispatch = useDispatch()
     const videogamesFilter = useSelector ((state) => state.videogamesFilter)
+    const status = useSelector ((state) => state.status)
+
     const videogames = useSelector ((state) => state.videogames)
     //paginado
     const [order, setOrder] = useState("")
@@ -35,20 +37,16 @@ export default function Home(){
         dispatch(getVideogames())
     },[dispatch]) 
 
-    function handleClick(e){
-    e.preventDefault();
-    dispatch(getVideogames())
-    dispatch(getGenre())
 
-    }
 
-    return (
-<div className="container-home">
+    return ( 
+    
+        <div className="container-home">
     <div>
         <Link to = "/create"> CREATE</Link>
         <h1>VIDEOGAMES</h1>
         {/* <button onClick={e=> {handleClick(e)}}>RELOAD</button> */}
-         <NavBar setCurrentPage={setCurrentPage} setOrder={setOrder}/>  
+         <NavBar setCurrentPage={setCurrentPage} setOrder={setOrder} />  
     </div>
 
 <div className="paginado">
@@ -64,10 +62,11 @@ currentPage={currentPage}
         <div>
         <h1>Videogames</h1>
         </div>
-<div>
-        {currentVideogames?.map((e) =>{ 
+<div className="div-cards">
+{/* videogamesFilter[0].data === "otra cosa" ? <div>no se encontro</div> :  */}
+            { currentVideogames?.map((e) =>{ 
             return (
-                <div className="div-cards">
+                <div >
                     <Link to ={`/detail/${e.id}`}> 
                         <Card key= {e.id} name = {e.name} image = {e.image? e.image : <img src = {jpg} width="310px" height="200px" />} genre= {e.genre} rating= {e.rating}/>
                     </Link>
@@ -86,6 +85,7 @@ paginado={paginado}
 currentPage={currentPage}
 />
         </div>
+
 </div>
     )
 }

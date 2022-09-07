@@ -1,6 +1,6 @@
 import React from "react";
 import  { useDispatch, useSelector } from "react-redux";
-import { filterVideogames, filterCreated, orderByName, orderByRating, getGenre, getVideogames, cleanFilter, filterByGenre } from "../actions/index.js"
+import { filterByGenre, filterCreated, orderByName, orderByRating, getGenre, getVideogames, cleanFilter } from "../actions/index.js"
 import SearchBar from "./SearchBar"
 // import "../styles/navBar.css"
 
@@ -9,6 +9,10 @@ export default function NavBar({setCurrentPage, setOrder}){
 
 const dispatch = useDispatch()
 const videogamesFilter = useSelector ((state) => state.videogamesFilter)
+const genre = useSelector ((state) => state.genre.sort((a, b)=> { if(a.name > b.name){ return 1 }
+if(a.name < b.name){return -1}
+return 0}))
+
 
 
 
@@ -39,7 +43,7 @@ function handleClick(e){
                 setOrder(`Ordenado ${e.target.value}`)
             }
 
-            function handleFilterGenre(e){
+            function handleFilterByGenre(e){
                 dispatch(filterByGenre(e.target.value))
                 setCurrentPage(1)
             }
@@ -71,29 +75,8 @@ function handleClick(e){
                
             </select>
           
-            <select onChange={e=>handleFilterGenre(e)}>
-                <option value = "all">sort by Genre</option>
-                <option value = "Action">Action</option>
-                <option value = "Adventure">Adventure</option>
-                <option value = "Arcade">Arcade</option>
-                <option value = "Board Games">Board Games </option>
-                <option value = "Card">Card</option>
-                <option value = "Casual">Casual </option>
-                <option value = "Educational">Educational </option>
-                <option value = "Family">Family </option>
-                <option value = "Fighting">Fighting </option>
-                <option value = "Indie">Indie </option>
-                <option value = "Massively Multiplayer">Multiplayer </option>
-                <option value = "Platformer">Platformer </option>
-                <option value = "Puzzle">Puzzle </option>
-                <option value = "Racing">Racing </option>
-                <option value = "RPG">RPG </option>
-                <option value = "Shooter">Shooter </option>
-                <option value = "Simulation">Simulation </option>
-                <option value = "Sports">Sports </option>
-                <option value = "Strategy">Strategy </option>
-   
-            </select>
+            <select onChange={e=>handleFilterByGenre(e)}> {genre.map((e) => (  <option value={e.name}>{e.name}</option> ))}
+                   </select>
 
             <div className="SearchBar">
             <SearchBar/>

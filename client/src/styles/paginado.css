@@ -27,3 +27,8 @@
     
     letter-spacing: 12px;
 }
+.paginado {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

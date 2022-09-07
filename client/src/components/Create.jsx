@@ -14,9 +14,15 @@ import "../styles/create.css"
 export default function Create(){
     const dispatch = useDispatch()
     const history = useHistory()
-    const genre = useSelector((state) => state.genre)
+
+    
+     
+    const genre = useSelector((state) => state.genre.sort((a, b)=> { if(a.name > b.name){ return 1 }
+    if(a.name < b.name){return -1}
+    return 0}))
     const [errors,setErrors] = useState({});
     const videogames = useSelector(state=>state.videogames)
+
 
 
         const [input,setInput] = useState({
@@ -48,9 +54,11 @@ function validate(input){
   } else if (videogames.find(e => e.name === input.name)){
 errors.name = "Name already exists"
   } else if ( input.rating < 0 ||  input.rating >5 ){
-    errors.types = "Rating must be between 0 and 5"
-  } else if ( input.description.length < 0 ||  input.description.length >255 ){
-    errors.types = "Rating must be between 0 and 5"
+    errors.name = "Rating must be between 0 and 5"
+  } else if ( input.description.length < 8 ||  input.description.length >255 ){
+    errors.description = "Needs a description between 8 and 255 characters"
+  } else if (input.genre.length === 0 || input.genre.length > 2) {
+    errors.genre = "Select one or two types"
   }
   return errors
 }
@@ -67,8 +75,10 @@ errors.name = "Name already exists"
           }
 
 
-          function handleSubmit(e){
+          function handleSubmit(e){//Selene pone el handle submit en el <form onSubmit={(e)=>handleSubmit(e)}>
+            //y el form llega hasta abajo del boton CREATE
                       e.preventDefault()
+                      console.log(input)
                       dispatch(postVideogame(input))
                       alert("Created!")
                       setInput({
@@ -80,18 +90,63 @@ errors.name = "Name already exists"
                         platforms: [],
                         genre :[]
                       })
-                      history.push('/home')
+                      history.push('/home')//aca quiero que vaya a "/detail/:id" (en detail pornerle el boton HOME, no BACK)
                     }
 
           function handleCheck(e){
                   if (e.target.checked){
                     setInput({
                       ...input,
-                      status: e.target.value
+                      platforms: e.target.checked
                     })
                   }
                 }
+                function handleDelete(e){
+                  setInput({
+                    ...input,
+                    genre: input.genre.filter(t =>t!== e.target.value)
+                  })
+                }
+                function handleDeletePlatforms(e){
+                  setInput({
+                    ...input,
+                    genre: input.platforms.filter(t =>t!== e.target.value)
+                  })
+                }
+                function handleSelect(e){
+                  if (!input.genre.includes(e.target.value)){
+                    
+                    setInput({
+                      ...input,
+                      genre: [...input.genre, e.target.value]
+                    })
+                  }
+                    setErrors(validate({
+                      ...input,
+                      genre: [...input.genre, e.target.value]
+                    }))
+                }
+            
 
+                function handlePlatform(e){
+                  if (!input.platforms.includes(e.target.value)){
+                    
+                    setInput({
+                      ...input,
+                      platforms: [...input.platforms, e.target.value]
+                    })
+                  }
+                    setErrors(validate({
+                      ...input,
+                      platforms: [...input.platforms, e.target.value]
+                    }))
+                }
+          // function handlGenre(e){
+          //   setGenre({
+          //     ...videogames,
+          //     genre: [...new Set([...videogames.genre, e.target.value])]
+          //   })
+          // }
 
         return (
           <div className="container-total-create"> 
@@ -103,7 +158,8 @@ errors.name = "Name already exists"
           <div className="create-videogame-components">
 
 
-          <form className="form-create">
+          
+          <form className="form-create" onSubmit={(e)=>handleSubmit(e)}>
 
 <div>
  <label  >Name: </label>
@@ -119,7 +175,10 @@ errors.name = "Name already exists"
 
  <div>
  <label>Image: </label>
- <input type = "text"  value = {input.image}  name = "image"  onChange={handleInputChange} />
+ <input type = "text"  
+ value = {input.image}  
+ name = "image"  
+ onChange={handleInputChange} />
  </div>
 
  <div>
@@ -137,182 +196,57 @@ errors.name = "Name already exists"
    <input type = "text"
    value = {input.description}
    name = "description"
+   style= {{width:300, height: 100}}
+   placeholder= {"255 characters max"}
    onChange={handleInputChange}/>
    {errors.description && (
      <span className="error">{errors.description}</span>
    )}
  </div>
-</form>
-
-<div className="checkboxes-create">
-                  <label className="title-name"><strong>Genres:</strong></label>
-                  <div id='genres' className="genres-div">
-
-                            <div className="Action">
-                                <input name="Action" 
-                                value="Action" 
-                                type="checkbox" 
-                                id="Action" />
-                                <label htmlFor="Action"
-                                onChange={(e)=>handleCheck(e)}
-                                >Action</label>
-                            </div>
 
 
-                            <div className="Adventure">
-                                <input name='Adventure' value='Adventure' type="checkbox" id="Adventure" />
-                                <label htmlFor="Adventure">Adventure</label>
-                            </div>
+<label className="title-genres">
+<strong>Genres:</strong> </label>
+<select onChange={handleSelect}> {genre.map((e) => (  <option value={e.name}>   {e.name}  </option> ))}
+                   </select>
+
+{/* <div>{input.genre.map(e => e,",")}</div> */}
+                  {input.genre.map(el=>
+                    <div>
+                     <button value={el} className="botonX" onClick={(el)=>handleDelete(el)}>X</button> 
+                    </div>)}
+
+<div> 
 
 
-                             <div>
-                                <input name='Arcade' value='Arcade' type="checkbox" id="Arcade" />
-                                <label htmlFor="Arcade">Arcade</label>
-                            </div>
-
-
-                            <div className="Board-Games">
-                                <input name='Board-Games' value='Board-Games' type="checkbox" id="Board-Games" />
-                                <label htmlFor="Board-Games">Board Games</label>
-                            </div>
-
-
-                            <div>
-                                <input name='Casual' value='Casual' type="checkbox" id="Casual" />
-                                <label htmlFor="Casual">Casual</label>
-                            </div>
-
-
-                            <div>
-                                <input name='Educational' value='Educational' type="checkbox" id="Educational" />
-                                <label htmlFor="Educational">Educational</label>
-                            </div>
-
-
-                            <div>
-                                <input name='Family' value='Family' type="checkbox" id="Family" />
-                                <label htmlFor="Family">Family</label>
-                            </div>
-
-
-                            <div>
-                                <input name='Fighting' value='Fighting' type="checkbox" id="Fighting" />
-                                <label htmlFor="Fighting">Fighting</label>
-                            </div>
-
-
-                            <div className="Indie">
-                                <input name='Indie' value='Indie' type="checkbox" id="Indie" />
-                                <label htmlFor="Indie">Indie</label>
-                            </div>
-
-
-                            <div>
-                                <input name='Massively Multiplayer' value='Massively Multiplayer' type="checkbox" id="Massively Multiplayer" />
-                                <label htmlFor="Massively-Multiplayer">Multiplayer</label>
-                            </div>
-
-
-                            <div>
-                                <input name='Platformer' value='Platformer' type="checkbox" id="Platformer" />
-                                <label htmlFor="Platformer">Platformer</label>
-                            </div>
-
-
-                            <div>
-                                <input name='Puzzle' value='Puzzle' type="checkbox" id="Puzzle" />
-                                <label htmlFor="Puzzle">Puzzle</label>
-                            </div>
-
-
-                            <div>
-                                <input name='Racing' value='Racing' type="checkbox" id="Racing" />
-                                <label htmlFor="Racing">Racing</label>
-                            </div>
-
-
-                            <div>
-                                <input name='Strategy' value='Strategy' type="checkbox" id="Strategy" />
-                                <label htmlFor="Strategy">Strategy</label>
-                            </div>
-
-
-                            <div>
-                                <input name='RPG' value='RPG' type="checkbox" id="RPG" />
-                                <label htmlFor="RPG">RPG</label>
-                            </div>
-
-
-                            <div>
-                                <input name='Shooter' value='Shooter' type="checkbox" id="Shooter" />
-                                <label htmlFor="Shooter">Shooter</label>
-                            </div>
-
-
-                            <div>
-                                <input name='Simulation' value='Simulation' type="checkbox" id="Simulation" />
-                                <label htmlFor="Simulation">Simulation</label>
-                            </div>
-
-
-                            <div>
-                                <input name='Sports' value='Sports' type="checkbox" id="Sports" />
-                                <label htmlFor="Sports">Sports</label>
-                            </div>
-                      </div>
+                    <label className="title-name"><strong>Platforms: </strong> </label>
+                        <div id='platforms' className="plat-div">
+                        <select onChange={handlePlatform}>
+                                <option value='macOS'> macOS </option>
+                                <option value='iOS'> iOS </option>
+                                <option value='PlayStation 4'> PlayStation 4 </option>
+                                <option value='Playstation 5'> Playstation 5 </option>
+                                <option value='XBOX'> XBOX </option>
+                                <option value='PS Vita'> PS Vita </option>
+                                <option value='PC'> PC </option>
+                        </select>
                         </div>
+                        <div>
+                     <button value="macOS" className="botonX" onClick={(e)=>handleDeletePlatforms(e)}>X</button> 
+                    </div>
 
-                        <div className="platform-create">
-
-<label className="title-name"><strong>Platforms:  </strong> </label>
-  <div id='platforms' className="platforms-create">
-  <div>
-      <input name='macOS' 
-      type="checkbox" 
-      id="macOS" />
-      <label htmlFor="macOS"
-      onChange={(e)=>handleCheck(e)}
-      >macOS</label>
-  </div>
-
-
-  <div>
-      <input name='iOS' type="checkbox" id="iOS" />
-      <label htmlFor="iOS">iOS</label>
-  </div>
-  <div>
-      <input name='PlayStation 4' type="checkbox" id="PlayStation 4" />
-      <label htmlFor="PlayStation 4">PlayStation 4</label>
-  </div>
-  <div>
-      <input name='PlayStation 5' type="checkbox" id="PlayStation 5" />
-      <label htmlFor="PlayStation 5">PlayStation 5</label>
-  </div>
-  <div>
-      <input name='XBOX' type="checkbox" id="XBOX" />
-      <label htmlFor="XBOX">XBOX</label>
-  </div>
-  <div>
-      <input name='Android' type="checkbox" id="Android" />
-      <label htmlFor="Android">Android</label>
-  </div>
-  <div>
-      <input name='PS Vita' type="checkbox" id="PS Vita" />
-      <label htmlFor="PS Vita">PS Vita</label>
-  </div>
-  <div>
-      <input name='PC' type="checkbox" id="PC" />
-      <label htmlFor="PC">PC</label>
-  </div>
-</div>
+                        <br/>
 </div>
 
 
-          </div>
 
           <div className="boton-create">
+          {/* <Link to ={`/detail/${id}`}> aqui estaria bueno que muestre la carta creada */}
           <button onClick={handleSubmit} type= 'submit' 
-          disabled={Object.keys(errors).length? true : false} >Create</button>
+          disabled={Object.keys(errors).length ? true : false} >Create</button>
+          {/* </Link> */}
+          </div>
+          </form>
           </div>
           </div> 
         )
