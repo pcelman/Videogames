@@ -20,8 +20,6 @@ export default function Create(){
     const genre = useSelector((state) => state.genre.sort((a, b)=> { if(a.name > b.name){ return 1 }
     if(a.name < b.name){return -1}
     return 0}))
-
-   
     const [errors,setErrors] = useState({});
     const videogames = useSelector(state=>state.videogames)
 
@@ -43,18 +41,14 @@ export default function Create(){
         useEffect(() => {
           dispatch(getGenre());
           dispatch(getVideogames())
-          if(validate(input)){
-            setErrors(validate(input))
-        }
           return ()=>{
             dispatch(cleanFilter())
           }
         }, []);
       
-    
-
-    let pattern = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
-    let reg_exImg = /.*(png|jpg|jpeg|gif)$/;
+        useEffect(() => {
+        validate(input)
+        }, [input, errors]);
 
 function validate(input){
   let errors = {}
@@ -66,31 +60,19 @@ function validate(input){
     errors.name = 'You´ve reached the limit of characters';
   } if ( videogames.find(e => e.name === input.name)){
 errors.name = "Name already exists"
-  } if ( input.released.length === 0){
-    errors.released = "Must fill in a date"
-  } if ( input.rating === 0 ){
-    errors.name = "Rating must be between 1 and 5"
+  }  if ( input.rating < 0 ||  input.rating >5 ){
+    errors.name = "Rating must be between 0 and 5"
   }  if ( input.description.length < 8 ||  input.description.length >255 ){
     errors.description = "Needs a description between 8 and 255 characters"
-  } 
-  
-  if ( input.genre.length === 0 ) {
-    errors.genre = "Select at least a genre"
-  } if ( input.genre.length > 3) {
-    errors.genre = "Select up to three genres"
-  } if (input.genre.includes(input.genre.value)){
+  }  if ( input.genre.length === 0 || input.genre.length > 3) {
+    errors.genre = "Select one or up to three genres"
+  }  if (input.genre.includes(input.genre.value)){
     errors.genre = "Genre already selected"
+  } if (input.image && !"([^\\s]+(\\.(?i)(jpe?g|png|gif|bmp))$)") {
+    errors.image = "You may add a link to an image that ends with jpeg, jpg, png, gif or bmp"
   }
-  // } if (!pattern.test(input.image)) {
-  //   errors.image = "You may add a link"
-  // } if (!pattern.test(input.image)) { 
-  //   if (!reg_exImg.test(input.image)){
-  //   errors.image = "Link needs to end with jpeg, jpg, png, gif or bmp"
-  // }}
   return errors
 }
-
-// let platforms=["iOS", "Mac", "PC", "Playstation 5", "Playstation 4"]
 
           function handleInputChange(e){
             setInput({
@@ -101,18 +83,15 @@ errors.name = "Name already exists"
               ...input,
               [e.target.name]: e.target.value
             }))
-            console.log(errors.genre)
             console.log(input)
-
-
           }
 
 
           function handleSubmit(e){//Selene pone el handle submit en el <form onSubmit={(e)=>handleSubmit(e)}>
             //y el form llega hasta abajo del boton CREATE
                       e.preventDefault()
-                      console.log(dispatch(postVideogame(input)))
-                     
+                      console.log(input)
+                      dispatch(postVideogame(input))
                       alert("Created!")
                       setInput({
                         name:"",
@@ -123,46 +102,21 @@ errors.name = "Name already exists"
                         platforms: [],
                         genre :[]
                       })
-                      // history.push('/home')
+                      history.push('/home')//aca quiero que vaya a "/detail/:id" (en detail pornerle el boton HOME, no BACK)
                     }
 
-          // function handleCheck(e){
-          //         if (e.target.checked){
-          //           setInput({
-          //             ...input,
-          //             platforms: e.target.checked
-          //           })
-          //         }
-          //       }
-
                 function handleDelete(e){
-                  e.preventDefault()
                   setInput({
                     ...input,
                     genre: input.genre.filter(t =>t!== e.target.value)
                   })
-                  setErrors(validate({
-                    ...input,
-                    [e.target.name]: [e.target.value]
-                  }))
-                  const nuevoInput=input
-                  setErrors(validate(nuevoInput))
-
-                  console.log(errors)
-                  console.log(errors.genre)
-
                 }
-
-
-
                 function handleDeletePlatforms(e){
                   setInput({
                     ...input,
                     genre: input.platforms.filter(t =>t!== e.target.value)
                   })
                 }
-
-
                 function handleSelect(e){
                   if (!input.genre.includes(e.target.value)){
                     
@@ -170,11 +124,11 @@ errors.name = "Name already exists"
                       ...input,
                       genre: [...input.genre, e.target.value]
                     })
+                  }
                     setErrors(validate({
                       ...input,
                       genre: [...input.genre, e.target.value]
                     }))
-                  }
                 }
             
 
@@ -197,31 +151,13 @@ errors.name = "Name already exists"
           //     genre: [...new Set([...videogames.genre, e.target.value])]
           //   })
           // }
-          // const handleCheckboxPlatforms = ({ target }) => {
-          //   if (target.checked) {
-          //     setFormValues({
-          //       ...formValues,
-          //       platforms: [
-          //         ...formValues.platforms,
-          //         { id: parseInt(target.value), name: target.name },
-          //       ],
-          //     });
-          //   } else {
-          //     setFormValues({
-          //       ...formValues,
-          //       platforms: formValues.platforms.filter(
-          //         (platform) => platform.id !== parseInt(target.value)
-          //       ),
-          //     });
-          //   }
-          // };
 
         return (
           <div className="container-total-create"> 
 
           <div className="header-videogame-create">
               <Link to = 'home'><button className="button-ch">go back</button></Link>
-          <div className="texto-videogame-create"> Make your own VG</div>
+          <h1 className="texto-videogame-create"> Make your own VG</h1>
           </div>
           <div className="create-videogame-components">
 
@@ -230,24 +166,22 @@ errors.name = "Name already exists"
           <form className="form-create" >
 
 <div>
- {/* <label  >Name: </label> */}
- <input  placeholder="Name" 
+ <label  >Name: </label>
+ <input  placeholder="requred..." 
  type = "text"  
  value = {input.name} 
  name = "name"
- style= {{width:200}}
  autoComplete="off" 
  onChange={handleInputChange}/>
- {/* <span>{input.name.length}/25</span> */}
+ <span>{input.name.length}/25</span>
 </div>
 
 <div>
- {/* <label  >Date: </label> */}
+ <label  >Date: </label>
  <input  
- type = "date" 
+ type = {new Date()}
  value = {input.date} 
- style= {{width:200}}
- name = "released"
+ name = "date"
  autoComplete="off" 
  onChange={handleInputChange}/>
  
@@ -255,32 +189,28 @@ errors.name = "Name already exists"
 
 
  <div>
- {/* <label>Image: </label> */}
- <input type = "text" 
- placeholder="Image"  
+ <label>Image: </label>
+ <input type = "text"  
  value = {input.image}  
- style= {{width:200}}
  name = "image"  
  onChange={handleInputChange} />
  </div>
 
  <div>
-   {/* <lable>Rating:</lable> */}
+   <lable>Rating:</lable>
    <input type = "number"
-   placeholder="Rating" 
    value = {input.rating}
-   style= {{width:200}}
    name = "rating"
    onChange={handleInputChange}/>
 
  </div>
  <div>
- {/* <lable>Description:</lable> */}
+ <lable>Description:</lable>
    <input type = "text"
    value = {input.description}
    name = "description"
-   style= {{width:200, height: 100}}
-   placeholder= {`Description. Required. 255 characters max`}
+   style= {{width:300, height: 100}}
+   placeholder= {"Required. 255 characters max"}
    onChange={ handleInputChange}/>
  {/* (e)=>{ if (input.length < 255) setInput (e.target.value) */}
  </div>
@@ -290,42 +220,54 @@ errors.name = "Name already exists"
 <strong>Genres:</strong> </label>
 <label className="subtitle-genres"> Choose up to 3 genres </label>
 
+<select onChange={handleSelect}> {genre.map((e) => (  <option value={e.name}>   {e.name}  </option> ))}
+                   </select>
 
-
-                  <select onChange={handleSelect}> {genre.map((e) => (<option value={e.name}>   {e.name}  </option> ))} </select>
-
-                  <div>{input.genre.map(e => e,",")}</div>
+{/* <div>{input.genre.map(e => e,",")}</div> */}
                   {input.genre.map(el=>
                     <div>
-                      <p> {el}</p> <button name="genre" value={el} className="botonX" onClick={(el)=>handleDelete(el)}>X</button> 
-                      </div>)}
+                     <button value={el} className="botonX" onClick={(el)=>handleDelete(el)}>X</button> 
+                    </div>)}
 
-                  
+<div> 
+<div id='platforms' className="plat-div">
+                        <label className="title-name"><strong>Platforms:  </strong> </label>
+                            <div>
+                                <label><input type="checkbox" name='macOS' value="macOS"
+                                onChange={(e)=>handleCheck(e)}/>
+                                macOS</label>
+                                <label><input type="checkbox" name='iOS' value="iOS"
+                                onChange={(e)=>handleCheck(e)}/>
+                                iOS</label>
+                                <label><input type="checkbox" name="PlayStation 4" value="PlayStation 4"
+                                onChange={(e)=>handleCheck(e)}/>
+                                PlayStation 4</label>
+                                <label><input type="checkbox" name="PlayStation 5" value="PlayStation 5"
+                                onChange={(e)=>handleCheck(e)}/>
+                                PlayStation 5</label>
+                                <label><input type="checkbox" name='XBOX' value="XBOX"
+                                onChange={(e)=>handleCheck(e)}/>
+                                XBOX</label>
+                                <label><input type="checkbox" name='Android' value="Android"
+                                onChange={(e)=>handleCheck(e)}/>
+                                Android</label>
+                                <label><input type="checkbox" name='PS Vita' value="PS Vita"
+                                onChange={(e)=>handleCheck(e)}/>
+                                PS Vita</label>
+                                <label><input type="checkbox" name='PC' value="PC"
+                                onChange={(e)=>handleCheck(e)}/>
+                                PC</label>
+                            </div>
 
-                    
-                  
-					{/* <h5>Platforms</h5>
-					<div className="checkbox-form">
-						{platforms &&
-							platforms.map((platform) => (
-								<div key={platform.id} className="create-platform-utton">
-									<label>
-										<input
-											type="checkbox"
-											name={platform.name}
-											value={platform.id}
-											onClick={handleCheckboxPlatforms}
-										/>
-										<div className="btnCheck">{platform.name}</div>
-									</label>
-								</div>
-							))}
-					</div> */}
 
-                  <div> 
-                  <label className="title-name"><strong>Platforms: </strong> </label>
-                        <div id='platforms' className="plat-div">
-                        <select onChange={handlePlatform}>
+
+
+                            {/* <XXXXXXXXXXXXXX>
+
+                            </XXXXXXXXXXXXXX> */}
+
+
+                        {/* <select onChange={handlePlatform}>
                                 <option value='macOS'> macOS </option>
                                 <option value='iOS'> iOS </option>
                                 <option value='PlayStation 4'> PlayStation 4 </option>
@@ -333,8 +275,9 @@ errors.name = "Name already exists"
                                 <option value='XBOX'> XBOX </option>
                                 <option value='PS Vita'> PS Vita </option>
                                 <option value='PC'> PC </option>
-                  </select>
-                  </div>
+                        </select> */}
+
+                        </div>
                         <div>
                      <button value="macOS" className="botonX" onClick={(e)=>handleDeletePlatforms(e)}>X</button> 
                     </div>
@@ -352,7 +295,6 @@ errors.name = "Name already exists"
             {errors.rating && (<p className="error-rating-create">{errors.rating}</p>)}
             <br/>
             {errors.description && (<span className="error-description-create">{errors.description}</span>)}
-            {errors.released && (<span className="error-released-create">{errors.released}</span>)}
           
           
             </div>

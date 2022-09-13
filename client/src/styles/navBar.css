@@ -1,0 +1,33 @@
+.general-navBar{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.header {
+    position: fixed;
+    width: 100%;
+    height: 90px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    color: aqua;
+}
+
+.select {
+    background-color: aquamarine;
+    color:blue;
+
+}
+
+.nav-menu {
+    display: flex;
+}
+.nav-menu li{
+    padding: 0 1rem;
+}
+
+.nav-menu a {
+    font-size: 1.2rem;
+    font-weight: 500;
+}

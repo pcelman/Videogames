@@ -19,10 +19,13 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER
     },
     released: {
-      type: DataTypes.STRING
+      type: DataTypes.DATEONLY,
+      allowNull: true,
+			defaultValue: DataTypes.NOW,
     },
+
     platforms: {
-      type: DataTypes.STRING,
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false
     },
     description: {
@@ -30,7 +33,7 @@ module.exports = (sequelize) => {
       // allowNull: false
     },
     image: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
 
     createdInDb: { 

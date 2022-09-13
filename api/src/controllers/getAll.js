@@ -17,10 +17,14 @@ const gamesApi = async () => {
                 id : e.id,
                 name: e.name,
                 image: e.background_image,
-                genre: e.genres.map(e => e.name).join(', '),
+                genres: e.genres.map(e => {
+                  return { 
+                    name: e.name 
+                  }}),
+                // .join().split(","),
                 released: e.released,
                 rating: e.rating,
-                platform: e.platforms.map((e) => e.platform.name).join(', ')
+                platforms: e.platforms.map((e) => e.platform.name).join().split(",")
             })
         })
         numeroPagina ++
@@ -45,6 +49,7 @@ const gamesDb = async () => {
         },
       },
     });
+
     return vgDb;
   };
 

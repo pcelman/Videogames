@@ -1,13 +1,14 @@
 import React from "react";
 import {useState, useEffect} from "react"
 import  { useDispatch, useSelector } from "react-redux";
-import { getVideogames, getGenre } from "../actions/index.js"
+import { getVideogames, getGenre, savePage } from "../actions/index.js"
 import { Link } from "react-router-dom"
 import  Card  from "./Card"
-// import  Footer  from "./Footer"
 import  Paginado  from "./Paginado"
 import gif from "./loading.gif"
 import jpg from "./placeHolder.jpg"
+import notF from "./notF.png"
+
 
 import "../styles/home.css"
 import NavBar from "./NavBar.jsx";
@@ -18,11 +19,13 @@ export default function Home(){
     const dispatch = useDispatch()
     const videogamesFilter = useSelector ((state) => state.videogamesFilter)
     const status = useSelector ((state) => state.status)
+    const pages1 = useSelector((state)=>state.pages)
 
     const videogames = useSelector ((state) => state.videogames)
     //paginado
+
     const [order, setOrder] = useState("")
-    const[currentPage, setCurrentPage] = useState(1)
+    const[currentPage, setCurrentPage] = useState(pages1)
     const[videogamePerPage, setVideogamesPerPage] = useState(12)
     const indexOfLastVideogame = currentPage * videogamePerPage 
     const indexOfFirstVideogame = indexOfLastVideogame - videogamePerPage
@@ -37,14 +40,16 @@ export default function Home(){
         dispatch(getVideogames())
     },[dispatch]) 
 
-
+    function handlePage(e){
+        dispatch(savePage(currentPage))
+    }
 
     return ( 
     
         <div className="container-home">
-    <div>
-        <Link to = "/create"> CREATE</Link>
-        <h1>VIDEOGAMES</h1>
+    <div className="titulo-home">
+        <div className="videogames-home">VIDEOGAMES</div>
+        <Link to = "/create"> <button className="boton-home">CREATE</button></Link>
         {/* <button onClick={e=> {handleClick(e)}}>RELOAD</button> */}
          <NavBar setCurrentPage={setCurrentPage} setOrder={setOrder} />  
     </div>
@@ -59,26 +64,32 @@ currentPage={currentPage}
 />
 </div>
 
-        <div>
-        <h1>Videogames</h1>
-        </div>
+     
 <div className="div-cards">
-{/* videogamesFilter[0].data === "otra cosa" ? <div>no se encontro</div> :  */}
-            { currentVideogames?.map((e) =>{ 
+
+            { videogamesFilter[0] === "otra cosa" ? 
+            <  img src = {notF} alt= "not found " width="610px"   />
+            : currentVideogames?.map((e) =>{ 
             return (
-                <div >
-                    <Link to ={`/detail/${e.id}`}> 
-                        <Card key= {e.id} name = {e.name} image = {e.image? e.image : <img src = {jpg} width="310px" height="200px" />} genre= {e.genre} rating= {e.rating}/>
+                <div className="tarjeta-home" 
+                // onHover={handleHover}
+                >
+                 
+                    <Link className="link"onClick={(e)=>handlePage(e)} to ={`/detail/${e.id}`}> 
+                        <Card onMouseOver={{scale: 1.4}} key= {e.id} name = {e.name} image = {e.image? e.image : <img src = {jpg} width="310px" height="200px" />} genre= {e.genres.map((e)=>e.name)} rating= {e.rating}/>
                     </Link>
+                 
                  </div>
            );
         })}      
 </div>
-        {currentVideogames.length === 0 && <  img src = {gif} alt= "Loading... " width="310px" height="200px"  />}
-        <div>
+        {currentVideogames.length === 0 && <  img src = {gif} alt= "Loading... " width="610px"  />}
+
+        <div className="paginado">
 
             {/* <Footer/> */}
-            <Paginado
+            <Paginado 
+            
 videogamePerPage={videogamePerPage}
 videogamesFilter={videogamesFilter.length}
 paginado={paginado}

@@ -21,14 +21,18 @@ export default function SearchBar (){
     }
 
     return (
-        <div>
+        <div className="wrap">
+
+        <div className="search">
             <input 
+            className="searchTerm"
             type= "text"
             placeholder = "search..."
             onChange = {(e)=> hanldeInputChange(e)}
             />
-            <button type ="submit" onClick={(e)=> handleSubmit(e)}  disabled={name.length ? false : true} >Search</button>
-            
+            <button className="searchButton" type ="submit" onClick={(e)=> handleSubmit(e)}  disabled={name.length ? false : true} >Search</button>
         </div>
+        </div>
+
     )
 }

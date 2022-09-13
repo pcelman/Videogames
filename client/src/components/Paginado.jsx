@@ -19,13 +19,22 @@ export default function Paginado ({videogamePerPage, videogamesFilter, paginado,
         if (currentPage >= pageNumbers.length) return; 
 		paginado(currentPage + 1);
     }
+
+    // function handlePages(){
+    //     dispatchEvent(filterByPage(e.target.value))
+    // }
+
+
+
     return (
         <div className="botonera">
        
         {currentPage===1 ? <div></div> : 
-         <span onClick={()=>handlePrev()} > {"<"} </span>
+         <span className="flechas" onClick={()=>handlePrev()} > {"<"} </span>
          }
    
+
+
          <span className="paginado">
              { pageNumbers && pageNumbers.map(number =>(
                 pageNumbers.length === 1 ? <span></span>:
@@ -38,10 +47,21 @@ export default function Paginado ({videogamePerPage, videogamesFilter, paginado,
                  ))}
              </span>
      
-        {currentPage === pageNumbers.length ? <div></div> : 
-         <span onClick={()=>handleNext()} > {">"} </span>
+        {pageNumbers && currentPage === pageNumbers.length ? <div></div> : 
+         <span className="arrows" onClick={()=>handleNext()} > {">"} </span>
          }
-     
+
+     {/* <div>
+        <lable className="itemsPerPage-paginado">items per page</lable>
+        <select onChange={handlePages}>
+        <option value = "12"> 12</option>
+        <option value = "25">25</option>
+        <option value = "50">50</option>
+        <option value = "all">all</option>
+        </select>
+     </div> */}
+
+
      </div>
 
    

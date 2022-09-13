@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom"
-//import "../styles/landingPage.css"
+import "../styles/landing.css"
 
 export default function LandingPage(){
     return(
@@ -9,7 +9,7 @@ export default function LandingPage(){
 
            
             <Link to = "/home">
-                <button className="homeBtnLP">GO!!</button>
+                <button className="button-landing">GO!!</button>
             </Link>
             </div>    
         </div>

@@ -51,13 +51,15 @@ function handleClick(e){
             return (
                 <div className="general-navBar">
 
-        
+        <div className="header">
+
+       
         
         <button onClick = {e => {handleClick(e)}}> RELOAD </button>
 
         <div className = "filtros">
             <select onChange={e=>handleSort(e)}>
-                 <option >Order alphabetically</option>
+                 <option className="select" >Order alphabetically</option>
                 <option value='asc'>Order by: A-Z</option>
                 <option value='desc'>Order by: Z-A</option>
                 </select>
@@ -78,11 +80,11 @@ function handleClick(e){
             <select onChange={e=>handleFilterByGenre(e)}> {genre.map((e) => (  <option value={e.name}>{e.name}</option> ))}
                    </select>
 
-            <div className="SearchBar">
+            <div className="searchbar-navBar">
             <SearchBar/>
             </div>
  </div>
-           
+ </div>
         </div>
        
        

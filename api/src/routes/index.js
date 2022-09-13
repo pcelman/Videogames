@@ -4,12 +4,15 @@ const { Videogame, Genre } = require("../db");
 const axios = require("axios").default;
 const videogameRouter = require("./videogame.js")
 const genreRouter = require("./genre.js")
+// const platformsRouter = require("./platforms.js")
 
 
 
 
 router.use("/videogame", videogameRouter)
 router.use("/genre", genreRouter)
+// router.use("/platforms", platformsRouter)
+
 
 
 
@@ -33,7 +36,7 @@ module.exports = router;
 
 //https://api.rawg.io/api/games/5286?key=4186dc21f1d743a3ba0a8382fd10d843
 
-
+//https://api.rawg.io/api/games?key=4186dc21f1d743a3ba0a8382fd10d843
 
 
 

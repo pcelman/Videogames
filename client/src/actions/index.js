@@ -21,6 +21,33 @@ export function getGenre(){
     console.log (error)
 }}}
 
+// export function getPlatforms (){
+// 	return async (dispatch) => {
+// 		try {
+// 			const response = await api.get('/videogames');
+// 			const allPlatformsRaw = [];
+// 			response.data.forEach((game) => {
+// 				game.platforms.forEach((platform) => {
+// 					allPlatformsRaw.push(platform);
+// 				});
+// 			});
+// 			let hash = {};
+// 			const allPlatforms = allPlatformsRaw.filter((o) => (hash[o.id] ? false : (hash[o.id] = true)));
+
+// 			dispatch(platformsLoaded(allPlatforms))
+
+// 		} catch (error) {
+// 			console.log(error);
+// 		}
+// 	};
+// };
+
+// const platformsLoaded = (platforms) => ({
+// 	type: types.platformsLoaded,
+// 	payload: platforms,
+// });
+
+
 // http://localhost:3001/videogame/4291
 export function getDetail (id){
     return async function (dispatch){
@@ -46,6 +73,7 @@ export function cleanFilter(){
 export function postVideogame(payload){
     return async function (dispatch) {
         const response = await axios.post("http://localhost:3001/videogame", payload)
+        console.log(response)
         return response;
     }
 }
@@ -58,7 +86,7 @@ console.log(json)
             if (json.data === "otra cosa") 
              return dispatch({
                 type: "NO_NAME",
-                payload: json
+                payload: json.data
             })
 
             return dispatch({
@@ -101,4 +129,20 @@ export function orderByRating(payload) {
         type: "ORDER_BY_RATING",
         payload
     };
-};
+}
+
+export function savePage(payload){
+    return function(dispatch){
+        return dispatch({
+            type:"SAVE_PAGE",
+            payload
+        })
+    }
+}
+//     filterByPage
+//     export function filterByPage(payload) {
+//         return {
+//             type: "FILTER_BY_PAGE",
+//             payload
+//         }; 
+// };

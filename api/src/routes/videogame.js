@@ -17,40 +17,69 @@ router.get('/', async (req,res) =>{
         let videoName = await allGames.filter(e => e.name.toLowerCase().includes(name.toLowerCase()));
         videoName.length ? 
         res.status(200).send(videoName) :
-        res.status(404).send('unavailable');
+        res.status(200).send('otra cosa');
         console.log(videoName)
     }else{
         res.status(200).send(allGames)
     }} catch (error){ console.log (error)}
 })
 
-router.post('/', async (req,res) =>{
-  let {name, description, released, rating, platforms, image, genre} = req.body
-try {
-  if (!name || !description || !genre ) {
-      return res.status(400).send("Name, description and genre required");
-  }
-  
-  const videoDb = await Videogame.findAll({ where: { name: name } });
-  if (videoDb.length != 0) {
-      return res.send("Name already exists");
-  }
-  let newGame = await Videogame.create({
-      name,
-      description,
-      rating,
-      released,
-      image,
-      platforms: platforms
-  });
-  let genreDb = await Genre.findAll({
-    where: { name: genre },
-  });
-  newGame.addGenre(genreDb);
 
-  res.send("DONE!");
-} catch (error) { console.log(error)}
-})
+router.post("/", async (req, res) => {
+    const {name, description, released, rating, platforms, image, genre} = req.body;
+    try {
+        if (!name || !description || !genre ) {
+                   return res.status(400).send("Name, description and genre required");
+              }
+
+        const videoDb = await Videogame.findAll({ where: { name: name } });
+            if (videoDb.length != 0) {
+            return res.send("Name already exists");}
+
+       const newGame = await Videogame.create({
+         name, description, rating, released, image, platforms: platforms, createdInDb: true
+        })                     
+        console.log(newGame)
+  
+     const genreDb = await Genre.findAll({
+       where: {name: genre}
+      })
+      console.log(genreDb)
+      newGame.addGenre(genreDb)
+     res.status(200).send("DONE!")
+  
+   } catch(error) {
+      console.log(error)
+     res.status(400).send("Something went wrong")
+   }
+  }) 
+// router.post('/', async (req,res) =>{
+//   let {name, description, released, rating, platforms, image, genre} = req.body
+// try {
+//   if (!name || !description || !genre ) {
+//       return res.status(400).send("Name, description and genre required");
+//   }
+  
+//   const videoDb = await Videogame.findAll({ where: { name: name } });
+//   if (videoDb.length != 0) {
+//       return res.send("Name already exists");
+//   }
+//   let newGame = await Videogame.create({
+//       name,
+//       description,
+//       rating,
+//       released,
+//       image,
+//       platforms: platforms
+//   });
+//   let genreDb = await Genre.findAll({
+//     where: { name: genre },
+//   });
+//   newGame.addGenre(genreDb);
+
+//   res.send("DONE!");
+// } catch (error) { console.log(error)}
+// })
 
 router.get('/:id', async (req, res) =>{
   const {id} = req.params;
@@ -85,6 +114,8 @@ if(!id.includes('-')){
       res.status(404).send(error)
   }
 })
+
+
 
 
 module.exports = router;

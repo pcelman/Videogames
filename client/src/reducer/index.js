@@ -2,9 +2,9 @@ const initialState = {
     videogames: [],
     videogamesFilter: [],
     genre: [],
-    // detail: [],
-    // currentPage: []
-    status: []
+    detail: [],
+    status: [],
+    pages: 1
 
 }
 
@@ -57,7 +57,7 @@ switch(action.type){
         const allV = state.videogames
         const filterAllG = action.payload === "All"? allV: 
 
-        allV.filter((e)=>e.genre === (action.payload))
+        allV.filter((e)=>e.genres.map((el)=>el.name).includes(action.payload))
         return {
                     ...state,
                     videogamesFilter: filterAllG
@@ -129,6 +129,11 @@ case "ORDER_BY_NAME":
                 ...state,
                 videogamesFilter: sortedArr1
             }
+    case "SAVE_PAGE":
+        return {
+            ...state,
+            pages: action.payload
+        }
 
 default: return state;
 }

@@ -1,9 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lato&display=swap');
+
 .botonera {
     display: flex;
     flex-direction:row;
+    margin-top: 30px;
 
 }
-
+.arrows{
+    font-family: 'Inter', sans-serif;
+    font-family: 'Lato', sans-serif;
+}
 .number{
     /* display: flex;
     justify-content: center;
@@ -12,12 +18,14 @@
     /* letter-spacing: 12px; */
     /* flex: row; */
     justify-content: center;
+
 }
 
 .letraNegrita {
     color: aliceblue;
     letter-spacing: 12px;
     text-decoration-style: solid;
+    font-weight: 1000;
     /* text-decoration: underline; */
     
 }
@@ -31,4 +39,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Inter', sans-serif;
+    font-family: 'Lato', sans-serif;
 }
