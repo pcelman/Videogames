@@ -1,7 +1,7 @@
 import React from "react";
 import {useState, useEffect} from "react"
 import  { useDispatch, useSelector } from "react-redux";
-import { getVideogames, getGenre, savePage } from "../actions/index.js"
+import { getVideogames, getGenre, savePage, getPlatforms } from "../actions/index.js"
 import { Link } from "react-router-dom"
 import  Card  from "./Card"
 import  Paginado  from "./Paginado"
@@ -18,8 +18,11 @@ export default function Home(){
 
     const dispatch = useDispatch()
     const videogamesFilter = useSelector ((state) => state.videogamesFilter)
+    const allVideogames = useSelector((state) => state.videogames)
     const status = useSelector ((state) => state.status)
     const pages1 = useSelector((state)=>state.pages)
+    const platforms = useSelector((state) => state.platforms)
+    
 
     const videogames = useSelector ((state) => state.videogames)
     //paginado
@@ -38,6 +41,7 @@ export default function Home(){
     useEffect(()=>{
         dispatch(getGenre())
         dispatch(getVideogames())
+        dispatch(getPlatforms())
     },[dispatch]) 
 
     function handlePage(e){
@@ -69,7 +73,10 @@ currentPage={currentPage}
 
             { videogamesFilter[0] === "otra cosa" ? 
             <  img src = {notF} alt= "not found " width="610px"   />
-            : currentVideogames?.map((e) =>{ 
+            :  
+            // videogamesFilter.length === 0 ? 
+            // <  img src = {notF} alt= "not found " width="610px"   />:
+            currentVideogames?.map((e) =>{ 
             return (
                 <div className="tarjeta-home" 
                 // onHover={handleHover}
@@ -83,8 +90,13 @@ currentPage={currentPage}
            );
         })}      
 </div>
-        {currentVideogames.length === 0 && <  img src = {gif} alt= "Loading... " width="610px"  />}
-
+        {videogamesFilter.length === 0 && allVideogames.length === 0 && <  img src = {gif} alt= "Loading... " width="610px"  />}
+        {
+         (allVideogames.length > 0 && videogamesFilter.length === 0 )? 
+         <  img src = {notF} alt= "not found " width="610px"   />
+        :
+        <span></span>}
+        
         <div className="paginado">
 
             {/* <Footer/> */}
@@ -100,4 +112,5 @@ currentPage={currentPage}
 </div>
     )
 }
+
 
