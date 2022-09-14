@@ -9,12 +9,19 @@ import {
 } from "../actions/index";
 import { useDispatch, useSelector } from "react-redux";
 import "../styles/create.css";
-// import CreateGenre from "./CreateGenre.jsx";
-// import CreatePlatform from "./CreatePlatform.jsx";
-// import CreateForm from "./CreateForm.jsx";
+
 
 export default function Create() {
-  const platforms = useSelector((state) => state.platforms)
+  const platforms = useSelector((state) => state.platforms.sort((a, b) => {
+    if (a > b) {
+      return 1;
+    }
+    if (a < b) {
+      return -1;
+    }
+    return 0;
+  }))
+  
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -91,17 +98,17 @@ export default function Create() {
     }
     if (input.genre.includes(input.genre.value)) {
       errors.genre = "Genre already selected";
-    }
-    // } if (!pattern.test(input.image)) {
-    //   errors.image = "You may add a link"
-    // } if (!pattern.test(input.image)) {
-    //   if (!reg_exImg.test(input.image)){
-    //   errors.image = "Link needs to end with jpeg, jpg, png, gif or bmp"
-    // }}
+    
+    } if (!pattern.test(input.image)) {
+      errors.image = "You may add a link"
+    } if (!pattern.test(input.image)) {
+      if (!reg_exImg.test(input.image)){
+      errors.image = "Link needs to end with jpeg, jpg, png, gif or bmp"
+    }}
     return errors;
   }
 
-  // let platforms=["iOS", "Mac", "PC", "Playstation 5", "Playstation 4"]
+
 
   function handleInputChange(e) {
     setInput({
@@ -119,8 +126,6 @@ export default function Create() {
   }
 
   function handleSubmit(e) {
-    //Selene pone el handle submit en el <form onSubmit={(e)=>handleSubmit(e)}>
-    //y el form llega hasta abajo del boton CREATE
     e.preventDefault();
     console.log(dispatch(postVideogame(input)));
 
@@ -134,17 +139,9 @@ export default function Create() {
       platforms: [],
       genre: [],
     });
-    // history.push('/home')
+    history.push('/home')
   }
 
-  // function handleCheck(e){
-  //         if (e.target.checked){
-  //           setInput({
-  //             ...input,
-  //             platforms: e.target.checked
-  //           })
-  //         }
-  //       }
 
   function handleDelete(e) {
     e.preventDefault();
@@ -168,7 +165,7 @@ export default function Create() {
   function handleDeletePlatforms(e) {
     setInput({
       ...input,
-      genre: input.platforms.filter((t) => t !== e.target.value),
+      platforms: input.platforms.filter((t) => t !== e.target.value),
     });
   }
 
@@ -187,44 +184,15 @@ export default function Create() {
     }
   }
 
-  function handlePlatform(e) {
+  function handleSelectPlatforms(e) {
     if (!input.platforms.includes(e.target.value)) {
       setInput({
         ...input,
         platforms: [...input.platforms, e.target.value],
       });
     }
-    setErrors(
-      validate({
-        ...input,
-        platforms: [...input.platforms, e.target.value],
-      })
-    );
   }
-  // function handlGenre(e){
-  //   setGenre({
-  //     ...videogames,
-  //     genre: [...new Set([...videogames.genre, e.target.value])]
-  //   })
-  // }
-  // const handleCheckboxPlatforms = ({ target }) => {
-  //   if (target.checked) {
-  //     setFormValues({
-  //       ...formValues,
-  //       platforms: [
-  //         ...formValues.platforms,
-  //         { id: parseInt(target.value), name: target.name },
-  //       ],
-  //     });
-  //   } else {
-  //     setFormValues({
-  //       ...formValues,
-  //       platforms: formValues.platforms.filter(
-  //         (platform) => platform.id !== parseInt(target.value)
-  //       ),
-  //     });
-  //   }
-  // };
+
 
   return (
     <div className="container-total-create">
@@ -295,7 +263,6 @@ export default function Create() {
               placeholder={`Description. Required. 255 characters max`}
               onChange={handleInputChange}
             />
-            {/* (e)=>{ if (input.length < 255) setInput (e.target.value) */}
           </div>
 
           <label className="title-genres">
@@ -303,9 +270,7 @@ export default function Create() {
           </label>
           <label className="subtitle-genres"> Choose up to 3 genres </label>
 
-          <select onChange={handleSelect}>
-            
-            {genre.map((e) => (
+          <select onChange={handleSelect}>{genre.map((e) => (
               <option value={e.name}> {e.name} </option>
             ))}
           </select>
@@ -324,30 +289,12 @@ export default function Create() {
             </div>
           ))}
 
-          {/* <h5>Platforms</h5>
-					<div className="checkbox-form">
-						{platforms &&
-							platforms.map((platform) => (
-								<div key={platform.id} className="create-platform-utton">
-									<label>
-										<input
-											type="checkbox"
-											name={platform.name}
-											value={platform.id}
-											onClick={handleCheckboxPlatforms}
-										/>
-										<div className="btnCheck">{platform.name}</div>
-									</label>
-								</div>
-							))}
-					</div> */}
-
           <div>
             <label className="title-name">
               <strong>Platforms: </strong>{" "}
             </label>
             <div id="platforms" className="plat-div">
-              <select onChange={handleSelect}>
+              <select onChange={handleSelectPlatforms}>
                 {" "}
                 {platforms.map((e) => (
                   <option value={e}> {e} </option>
@@ -355,15 +302,22 @@ export default function Create() {
                 ))}{" "}
               </select>
             </div>
+  
+            
+            {input.platforms.map((el) => (
             <div>
+              <p> {el}</p>{" "}
               <button
-                value="macOS"
+                name="platforms"
+                value={el}
                 className="botonX"
-                onClick={(e) => handleDeletePlatforms(e)}
-              >
+                onClick={(el) => handleDeletePlatforms(el)}>
                 X
               </button>
             </div>
+          ))}
+
+
             <br />
           </div>
 
@@ -381,15 +335,15 @@ export default function Create() {
               )}
               <br />
               {errors.description && (
-                <span className="error-description-create">
+                <p className="error-description-create">
                   {errors.description}
-                </span>
+                </p>
               )}
+               <br />
               {errors.released && (
-                <span className="error-released-create">{errors.released}</span>
+                <p className="error-released-create">{errors.released}</p>
               )}
             </div>
-            {/* <Link to ={`/detail/${id}`}> aqui estaria bueno que muestre la carta creada */}
           </div>
         </form>
 
@@ -402,7 +356,7 @@ export default function Create() {
           >
             Create
           </button>
-          {/* </Link> */}
+  
         </div>
         <div className="image-preview-create">
           {input.image && <img src={input.image} width="300px" />}

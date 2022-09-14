@@ -23,7 +23,12 @@ const index = Math.floor(rating)
              
                 <ul className="genre-card">{genre.join(", ")}</ul>
 
-                <ul className="rating-card" ><strong>Rating</strong>: {`${rating} ⭐` }</ul>
+                
+                <div className="estrellitas">
+                 { [...Array(Math.floor(rating))].map(( i) => <div key={i}>⭐</div>
+                )}
+                </div>
+                
                 </div>
 
                    </div>

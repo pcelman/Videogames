@@ -20,9 +20,7 @@ export default function Paginado ({videogamePerPage, videogamesFilter, paginado,
 		paginado(currentPage + 1);
     }
 
-    // function handlePages(){
-    //     dispatchEvent(filterByPage(e.target.value))
-    // }
+
 
 
 
@@ -47,7 +45,9 @@ export default function Paginado ({videogamePerPage, videogamesFilter, paginado,
                  ))}
              </span>
      
-        {pageNumbers && currentPage === pageNumbers.length ? <div></div> : 
+        {
+         pageNumbers &&
+        currentPage === pageNumbers.length ? <div></div> : 
          <span className="arrows" onClick={()=>handleNext()} > {">"} </span>
          }
 

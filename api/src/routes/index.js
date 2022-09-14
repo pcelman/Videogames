@@ -4,14 +4,14 @@ const { Videogame, Genre } = require("../db");
 const axios = require("axios").default;
 const videogameRouter = require("./videogame.js")
 const genreRouter = require("./genre.js")
-// const platformsRouter = require("./platforms.js")
+
 
 
 
 
 router.use("/videogame", videogameRouter)
 router.use("/genre", genreRouter)
-// router.use("/platforms", platformsRouter)
+
 
 
 

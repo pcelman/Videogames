@@ -99,14 +99,14 @@ currentPage={currentPage}
         
         <div className="paginado">
 
-            {/* <Footer/> */}
-            <Paginado 
+           
+            {/* <Paginado 
             
 videogamePerPage={videogamePerPage}
 videogamesFilter={videogamesFilter.length}
 paginado={paginado}
 currentPage={currentPage}
-/>
+/> */}
         </div>
 
 </div>

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getNameVideogames } from "../actions/index";
 
-export default function SearchBar (){
+export default function SearchBar ({setCurrentPage}){
     const dispatch = useDispatch()
     const [name, setName] = useState("")
    
@@ -17,6 +17,7 @@ export default function SearchBar (){
     function handleSubmit(e){
         e.preventDefault()
         dispatch(getNameVideogames(name))
+        setCurrentPage(1)
         
     }
 

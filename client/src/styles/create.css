@@ -95,6 +95,11 @@
       font-family: 'Inter', sans-serif;
       font-family: 'Lato', sans-serif;
      }
+     .error-released-create{
+      color:rgb(203, 134, 134);
+      font-family: 'Inter', sans-serif;
+      font-family: 'Lato', sans-serif;
+    }
    .opciones-character-create{
     top: 20vh;
     left: 30vw;

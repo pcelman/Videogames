@@ -53,33 +53,7 @@ router.post("/", async (req, res) => {
      res.status(400).send("Something went wrong")
    }
   }) 
-// router.post('/', async (req,res) =>{
-//   let {name, description, released, rating, platforms, image, genre} = req.body
-// try {
-//   if (!name || !description || !genre ) {
-//       return res.status(400).send("Name, description and genre required");
-//   }
-  
-//   const videoDb = await Videogame.findAll({ where: { name: name } });
-//   if (videoDb.length != 0) {
-//       return res.send("Name already exists");
-//   }
-//   let newGame = await Videogame.create({
-//       name,
-//       description,
-//       rating,
-//       released,
-//       image,
-//       platforms: platforms
-//   });
-//   let genreDb = await Genre.findAll({
-//     where: { name: genre },
-//   });
-//   newGame.addGenre(genreDb);
 
-//   res.send("DONE!");
-// } catch (error) { console.log(error)}
-// })
 
 router.get('/:id', async (req, res) =>{
   const {id} = req.params;
@@ -87,7 +61,7 @@ router.get('/:id', async (req, res) =>{
 if(!id.includes('-')){
       let getAllGames = await getAll(); 
   
-      let oneGame = await getAllGames.filter(e => e.id === parseInt(id));
+      let oneGame = getAllGames.filter(e => e.id === parseInt(id));
   
       if(oneGame.length > 0){
           const detalle = await axios.get(`https://api.rawg.io/api/games/${id}?key=${APIKEY}`)

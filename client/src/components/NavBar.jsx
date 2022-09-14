@@ -81,7 +81,7 @@ function handleClick(e){
                    </select>
 
             <div className="searchbar-navBar">
-            <SearchBar/>
+            <SearchBar setCurrentPage={setCurrentPage}/>
             </div>
  </div>
  </div>

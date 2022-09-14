@@ -56,9 +56,9 @@ const gamesDb = async () => {
 
 const getAll = async () => {
   const apiGames = await gamesApi();
+  console.log(apiGames);
   const dbGames = await gamesDb();
   const all = apiGames.concat(dbGames);
-  // console.log(all);
   return all;
 };
 

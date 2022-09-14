@@ -36,11 +36,6 @@ export function getPlatforms() {
     let arrayPlatforms = [...uniquePlatforms];
 
     console.log(arrayPlatforms);
-    //   let hash = {};
-    //   const allPlatforms = allPlatformsRaw.filter((o) =>
-    //     hash[o.id] ? false : (hash[o.id] = true)
-    //   );
-
     return dispatch({
       type: "GET_PLATFORMS",
       payload: arrayPlatforms,
