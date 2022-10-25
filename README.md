@@ -3,16 +3,14 @@ SPA created with the API https://rawg.io/
 Homepage:<br>
 <img width="1412" alt="Screen Shot 2022-10-25 at 20 28 47" src="https://user-images.githubusercontent.com/100241036/197901903-56b927d4-133b-4c97-b42f-2341b80e49b9.png">
 
-<img width="1118" alt="Screen Shot 2022-10-25 at 20 30 47" src="https://user-images.githubusercontent.com/100241036/197901930-a19e64fb-305e-4b57-9c09-8f3d037da8f2.png">
-<img width="1121" alt="Screen Shot 2022-10-25 at 20 30 57" src="https://user-images.githubusercontent.com/100241036/197901937-5f53d591-f516-4d96-b729-b4f0fabf0e20.png">
 
 <br>
 Detail of a card:<br>
 <img width="1183" alt="Screen Shot 2022-10-25 at 20 30 04" src="https://user-images.githubusercontent.com/100241036/197901918-2ff6cd19-b7ee-41ff-bc9d-095b5add2b25.png">
 Form for the creation of a new videogame with the state of genres and platforms ordered alphabetically for ease of use:
-https://res.cloudinary.com/do3dbemlj/image/upload/v1666741057/Videogames/Screen_Shot_2022-10-25_at_20.30.47_ydrzlr.png
-<br>
-https://res.cloudinary.com/do3dbemlj/image/upload/v1666741057/Videogames/Screen_Shot_2022-10-25_at_20.30.57_vtlkra.png
+
+<img width="1118" alt="Screen Shot 2022-10-25 at 20 30 47" src="https://user-images.githubusercontent.com/100241036/197901930-a19e64fb-305e-4b57-9c09-8f3d037da8f2.png">
+<img width="1121" alt="Screen Shot 2022-10-25 at 20 30 57" src="https://user-images.githubusercontent.com/100241036/197901937-5f53d591-f516-4d96-b729-b4f0fabf0e20.png">
 <br>
 
 
