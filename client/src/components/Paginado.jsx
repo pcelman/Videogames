@@ -25,7 +25,7 @@ export default function Paginado ({videogamePerPage, videogamesFilter, paginado,
 
 
     return (
-        <div className="botonera">
+        <main className="botonera">
        
         {currentPage===1 ? <div></div> : 
          <span className="flechas" onClick={()=>handlePrev()} > {"<"} </span>
@@ -51,18 +51,9 @@ export default function Paginado ({videogamePerPage, videogamesFilter, paginado,
          <span className="arrows" onClick={()=>handleNext()} > {">"} </span>
          }
 
-     {/* <div>
-        <lable className="itemsPerPage-paginado">items per page</lable>
-        <select onChange={handlePages}>
-        <option value = "12"> 12</option>
-        <option value = "25">25</option>
-        <option value = "50">50</option>
-        <option value = "all">all</option>
-        </select>
-     </div> */}
 
 
-     </div>
+     </main>
 
    
     )

@@ -1,10 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lato&display=swap');
 
-
+ * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html {
+  font-size: 62.5%;
+}
 .titulo-home {
   display: flex;
   align-items: center;
-  padding-left: 30px;
+  padding-left: 3rem;
   font-family: 'Inter', sans-serif;
   font-family: 'Lato', sans-serif; 
   background-color: rgb(95, 105, 105);
@@ -69,4 +76,51 @@
   
   .boton-home:active {
     transform: translateY(-1px);
+  }
+
+  /* loader */
+  .progress-loader {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+  }
+  
+  .progress-loader {
+    width: 150px;
+    background: rgba(236, 236, 238, 0.253);
+    height: 3px;
+    border-radius: 7px;
+  }
+  
+  .progress {
+    content: '';
+    width: 1px;
+    height: 3px;
+    border-radius: 7px;
+    background: rgb(255, 255, 255);
+    transition: 0.5s;
+    animation: loading1274 2s ease infinite;
+  }
+  
+  @keyframes loading1274 {
+    0% {
+      width: 0%;
+    }
+  
+    10% {
+      width: 10%;
+    }
+  
+    50% {
+      width: 40%;
+    }
+  
+    60% {
+      width: 60%;
+    }
+  
+    100% {
+      width: 100%;
+    }
   }

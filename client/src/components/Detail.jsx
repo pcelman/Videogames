@@ -13,8 +13,6 @@ export default function Detail(props) {
     const videogames = useSelector((state) => state.videogames)
 
     const history = useHistory()
-    // console.log("detail[0]:", detail[0])
-    // console.log("typeof: OBJETO", typeof(detail[0]))
 
 console.log("genero:", detail[0]?.genres[0]?.name)
 const unGenero = detail[0]?.genres[0]?.name
@@ -34,7 +32,7 @@ console.log("unGenero:", unGenero)
     
 
     return (
-        <div className="fondo-detail">
+        <body className="fondo-detail">
 
             <div className="contenedor-detail">
 
@@ -48,12 +46,9 @@ console.log("unGenero:", unGenero)
 
                 <div className="texto-detail">
                     <div className="nombre-detail">{detail[0].name}</div>
-                    
-                {/* <div className="rating-detail"><strong>Rating</strong>: {`${detail[0].rating} ⭐` }</div> */}
+              
 
-                
-
-                <div className="estrellitas">
+                <div className="detail-stars">
                  { [...Array(Math.floor(detail[0].rating))].map(( i) => <div key={i}>⭐</div>
                 )}
                 </div>
@@ -70,7 +65,9 @@ console.log("unGenero:", unGenero)
                 <div>Description: {detail[0].description}</div>
                 </div>
 
-                </div> : <p className="loading-detail">Loading...</p>
+                </div> : <div class="progress-loader">
+    <div class="progress"></div>
+</div>
         }
         <div className="volver">
 
@@ -83,6 +80,6 @@ console.log("unGenero:", unGenero)
         </div>
         </div>
 
-    </div>
+    </body>
 )
 }

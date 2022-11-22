@@ -53,8 +53,8 @@ export default function Home() {
   }
 
   return (
-    <div className="container-home">
-      <div className="titulo-home">
+    <body className="container-home">
+      <header className="titulo-home">
         <div className="videogames-home">VIDEOGAMES</div>
         <Link to="/create">
           {" "}
@@ -62,7 +62,7 @@ export default function Home() {
         </Link>
 
         <NavBar setCurrentPage={setCurrentPage} setOrder={setOrder} />
-      </div>
+      </header>
 
       <div className="paginado">
         <Paginado
@@ -106,14 +106,15 @@ export default function Home() {
         )}
       </div>
       {videogamesFilter.length === 0 && allVideogames.length === 0 && (
-        <img src={gif} alt="Loading... " width="610px" />
+        <div class="progress-loader">
+          <div class="progress"></div>
+        </div>
       )}
       {allVideogames.length > 0 && videogamesFilter.length === 0 ? (
         <img src={notF} alt="not found " width="610px" />
       ) : (
         <span></span>
       )}
-      <div className="paginado"></div>
-    </div>
+    </body>
   );
 }

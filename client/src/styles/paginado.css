@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lato&display=swap');
 
+html {
+    font-size: 62.5%;
+  }
+
 .botonera {
     display: flex;
     flex-direction:row;
@@ -11,14 +15,7 @@
     font-family: 'Lato', sans-serif;
 }
 .number{
-    /* display: flex;
     justify-content: center;
-    align-items: center;
-    word-wrap: normal; */
-    /* letter-spacing: 12px; */
-    /* flex: row; */
-    justify-content: center;
-
 }
 
 .letraNegrita {
@@ -26,13 +23,10 @@
     letter-spacing: 12px;
     text-decoration-style: solid;
     font-weight: 1000;
-    /* text-decoration: underline; */
-    
 }
 
 .letraStandard {
     text-decoration: none;
-    
     letter-spacing: 12px;
 }
 .paginado {
@@ -41,4 +35,5 @@
     align-items: center;
     font-family: 'Inter', sans-serif;
     font-family: 'Lato', sans-serif;
+    cursor: pointer;
 }

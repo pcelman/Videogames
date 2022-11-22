@@ -33,7 +33,10 @@
   font-family: 'Lato', sans-serif;
 }
 
-
+.stars {
+    display: flex;
+    order: 5;
+      }
 
     .rating-card {    
         display: flex;
@@ -79,15 +82,3 @@
         margin: 20px;
         text-decoration: none;
     }
-
-    /* .info-card{
-        position: absolute;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        top: 0;
-
-    }
-    .info-card.active {
-        left: 0;
-    } */
