@@ -9,11 +9,9 @@ import {
 } from "../actions/index.js";
 import { Link } from "react-router-dom";
 import Card from "./Card";
-import Paginado from "./Paginado";
-import gif from "./loading.gif";
+import Pg from "./Pg";
 import jpg from "./placeHolder.jpg";
 import notF from "./notF.png";
-
 import "../styles/home.css";
 import NavBar from "./NavBar.jsx";
 
@@ -54,18 +52,18 @@ export default function Home() {
 
   return (
     <body className="container-home">
-      <header className="titulo-home">
-        <div className="videogames-home">VIDEOGAMES</div>
+      <header className="navBar">
+        <div className="title">VIDEOGAMES</div>
         <Link to="/create">
           {" "}
-          <button className="boton-home">CREATE</button>
+          <button className="new">NEW</button>
         </Link>
 
         <NavBar setCurrentPage={setCurrentPage} setOrder={setOrder} />
       </header>
 
-      <div className="paginado">
-        <Paginado
+      <div className="pg">
+        <Pg
           videogamePerPage={videogamePerPage}
           videogamesFilter={videogamesFilter.length}
           paginado={paginado}

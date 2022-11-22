@@ -12,7 +12,7 @@ const index = Math.floor(rating)
 
     return(      
             
-                <div className="card" > 
+                <body className="card" > 
                 
                 <img src={image} alt = {name} className="image-card" />
 
@@ -31,7 +31,7 @@ const index = Math.floor(rating)
                 
                 </div>
 
-                   </div>
+                   </body>
                 
 
               
