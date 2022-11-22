@@ -20,8 +20,6 @@
 
 .container-home {
        background-size: cover;
-       /* background-color: rgb(135, 101, 101); */
-       /* position:fixed; */
        overflow-y: scroll;
      }
 .link{
