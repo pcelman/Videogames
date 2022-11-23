@@ -29,7 +29,7 @@ html {
   letter-spacing: 10px;
   padding: 50px;
 }
-/* create button  */
+/* NEW button  */
 .navBar .new  {
   margin-right: 350px;
   padding: 1.3em 3em;
@@ -68,20 +68,15 @@ html {
 }
 .div-cards {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0px;
-    grid-template-rows:minmax(50px, auto);
+    justify-content: center;
+    grid-template: repeat(5, 20px) / repeat(6, 20px);
+    gap: 161px 160px;
+    /* row-gap: 160px; */
     word-spacing: 3px;
     padding: 20px; 
     padding-bottom: 10px;
-    margin: 30px 30px 30px auto ;
+    /* margin: 20px auto ; */
    } 
-
-   /* .not-found{
-    text-size-adjust: 15px;
-    color: rgb(103, 102, 101);
-   } */
-
 
 
   /* loader */

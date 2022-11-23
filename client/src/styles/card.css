@@ -19,6 +19,7 @@
     margin-top: 0px;
     padding-bottom: 0px;
     margin-bottom: 0px;
+    position: relative;
     }
 
 .card__text{
@@ -30,11 +31,6 @@
   text-decoration: none;
 }
 
-/* .card__text {
-    font-size: 11px;
-    margin: 20px;
-    text-decoration: none;
-} */
 
 .card__title{
     font-size: 13px;
@@ -42,9 +38,10 @@
     justify-content: center;
     align-items: left;
     color: white;
-    /* outline: black;
+    outline: black;
     position: absolute;
-    top: 80px; */
+    top:60%;
+    translate: (0, -50%);
 }
 /* .card__box {
 width: 17rem;
@@ -56,7 +53,11 @@ top: 80px;
 
 .card__stars {
     display: flex;
-    justify-content: right;
+    /* justify-content: right; */
+    position: absolute;
+    top: 8px;
+    right: 12px;
+
       }
 
  .card__genre {
