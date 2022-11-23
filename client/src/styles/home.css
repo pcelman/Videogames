@@ -62,18 +62,19 @@ html {
        background-size: cover;
        overflow-y: scroll;
      }
+
 .link{
   text-decoration: none;
 }
 .div-cards {
-  /* margin-top: 100px; */
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    gap: 0px;
     grid-template-rows:minmax(50px, auto);
     word-spacing: 3px;
-    padding: 10px;
+    padding: 20px; 
     padding-bottom: 10px;
-    
+    margin: 30px 30px 30px auto ;
    } 
 
    /* .not-found{
